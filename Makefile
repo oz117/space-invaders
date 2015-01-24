@@ -20,7 +20,7 @@ CXXFLAGS	+= -g3
 
 CXXFLAGS	+= -O3
 
-LDFLAGS		= -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		= -framework sfml-graphics -lsfml-window -lsfml-system
 
 RM	= rm -f
 
