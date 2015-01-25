@@ -7,9 +7,8 @@ CXX	= clang++
 
 DIR_SRC	= ./src
 
-SRCS	= main.cpp	\
-	$(DIR_SRC)/Menu.cpp
-
+SRCS	=	main.cpp	\
+			Component.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 CXXFLAGS	= -I./include
@@ -20,7 +19,7 @@ CXXFLAGS	+= -g3
 
 CXXFLAGS	+= -O3
 
-LDFLAGS		= -framework sfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		= -lsfml-graphics -lsfml-window -lsfml-system
 
 RM	= rm -f
 
