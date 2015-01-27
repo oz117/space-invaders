@@ -7,8 +7,10 @@ CXX	= clang++
 
 DIR_SRC	= ./src
 
-SRCS	=	main.cpp	\
-			Component.cpp
+SRCS	=	main.cpp			\
+			$(DIR_SRC)/Game.cpp	\
+			$(DIR_SRC)/Ship.cpp
+
 OBJS	= $(SRCS:.cpp=.o)
 
 CXXFLAGS	= -I./include
