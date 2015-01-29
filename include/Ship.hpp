@@ -9,6 +9,7 @@
 
 # include   <iostream>
 # include   <SFML/Graphics.hpp>
+# include   "Properties.hpp"
 
 class   Ship {
     private:
@@ -19,6 +20,9 @@ class   Ship {
         ~Ship(void);
     public:
         sf::RectangleShape&     getShape(void);
+        const float&            getX(void);
+        void                    setX(const float& newX);
+        void                    move(void);
     protected:
         sf::RectangleShape  _ship;
 };
