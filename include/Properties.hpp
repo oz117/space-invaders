@@ -12,7 +12,7 @@ const int   FQ = 16;
  */
 const int   WALL_LIFE = 100;
 const float WALL_Y_OFFSET = 675.f;
-const float WALL_LENGHT = 55.f;
+const float WALL_LENGTH = 55.f;
 const float WALL_HEIGHT = 30.f;
 /*
  ** Ship properties
@@ -21,5 +21,12 @@ const float SHIP_SPEED = 10.f;
 const float Y_OFFSET = 730.f;
 const float LENGTH = 50.f;
 const float HEIGHT = 20.f;
+/*
+ ** Adversary properties
+ */
+const float ADVERSARY_SPEED = 5.f;
+const float ADVERSARY_Y_OFFSET = 20.f;
+const float ADVERSARY_LENGTH = 40.f;
+const float ADVERSARY_HEIGHT = 10.f;
 
 #endif      /* !PROPERTIES_HPP_ */

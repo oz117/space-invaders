@@ -4,7 +4,7 @@ Wall::Wall(const std::pair<float, float>& pos)
 {
     this->_pos = pos;
     this->_life = WALL_LIFE;
-    this->_wall.setSize(sf::Vector2<float>(WALL_LENGHT, WALL_HEIGHT));
+    this->_wall.setSize(sf::Vector2<float>(WALL_LENGTH, WALL_HEIGHT));
     this->_wall.setFillColor(sf::Color::Red);
     this->_wall.setPosition(sf::Vector2<float>(pos.first, pos.second));
 }
@@ -19,7 +19,7 @@ int     Wall::getLife(void) const
     return (this->_life);
 }
 
-const std::pair<int, int>&  Wall::getPos(void) const
+const std::pair<float, float>&  Wall::getPos(void) const
 {
     return (this->_pos);
 }

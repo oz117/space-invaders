@@ -28,8 +28,12 @@ bool        Game::init(void)
     this->_window = new sf::RenderWindow(sf::VideoMode(X_SIZE, Y_SIZE), "Space Invaders");
     this->_window->setVerticalSyncEnabled(true);
     for (int i = 0; i < 5; ++i) {
-        pos = ((X_SIZE / 6) * (i + 1)) - (WALL_LENGHT / 2);
+        pos = ((X_SIZE / 6) * (i + 1)) - (WALL_LENGTH / 2);
         this->_walls.push_back(new Wall(std::pair<float, float>(pos, WALL_Y_OFFSET)));
+    }
+    for (int i = 0; i < 8; ++i) {
+        pos = ((X_SIZE / 8) * i);
+        this->_adversaries.push_back(new Adversary(std::pair<float, float>(pos, ADVERSARY_Y_OFFSET), sf::Color::White));
     }
     return (true);
 }
@@ -71,6 +75,9 @@ bool    Game::run(void)
             this->_window->draw(ship.getShape());
             for (auto it = this->_walls.begin(); it != this->_walls.end(); ++it) {
                 this->_window->draw((*it)->getWall());
+            }
+            for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
+                this->_window->draw((*it)->getShape());
             }
             this->_window->display();
             clock.restart();

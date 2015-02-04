@@ -12,6 +12,7 @@
 # include   <SFML/Graphics.hpp>
 # include   "Ship.hpp"
 # include   "Wall.hpp"
+# include   "Adversary.hpp"
 
 class   Game{
  private:
@@ -24,8 +25,9 @@ class   Game{
     bool    init(void);
     bool    run(void);
  protected:
-    sf::RenderWindow    *_window;
-    std::vector<Wall*>  _walls;
+    sf::RenderWindow        *_window;
+    std::vector<Wall*>      _walls;
+    std::vector<Adversary*> _adversaries;
 };
 
 #endif      /* !GAME_HPP_ */

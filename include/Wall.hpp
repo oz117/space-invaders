@@ -21,12 +21,12 @@ class       Wall {
         ~Wall(void);
     public:
         int                         getLife(void) const;
-        const std::pair<int, int>&  getPos(void) const;
+        const std::pair<float, float>&  getPos(void) const;
         void                        setLife(const int life);
         const sf::RectangleShape&   getWall(void) const;
     protected:
         int                         _life;
-        std::pair<int, int>         _pos;
+        std::pair<float, float>     _pos;
         sf::RectangleShape          _wall;
 };
 
