@@ -23,6 +23,7 @@ class       Adversary {
     public:
         const std::pair<float, float>&  getPos(void) const;
         const sf::RectangleShape&       getShape(void) const;
+        void    move(void);
     protected:
         std::pair<float, float>     _pos;
         sf::RectangleShape          _shape;

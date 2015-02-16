@@ -28,3 +28,13 @@ const sf::RectangleShape&       Adversary::getShape(void) const
 {
     return (this->_shape);
 }
+
+void                            Adversary::move(void)
+{
+    if ((this->_shape.getPosition().x + ADVERSARY_LENGTH) >= X_SIZE) {
+        this->_shape.setPosition(0 + ADVERSARY_SPEED,this->_shape.getPosition().y + 20.f);
+    }
+    else {
+        this->_shape.setPosition(this->_shape.getPosition().x + ADVERSARY_SPEED,this->_shape.getPosition().y);
+    }
+}

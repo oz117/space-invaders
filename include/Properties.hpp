@@ -24,9 +24,8 @@ const float HEIGHT = 20.f;
 /*
  ** Adversary properties
  */
-const float ADVERSARY_SPEED = 5.f;
-const float ADVERSARY_Y_OFFSET = 20.f;
+const int   ADVERSARY_SPEED = 1.f;
 const float ADVERSARY_LENGTH = 40.f;
-const float ADVERSARY_HEIGHT = 10.f;
-
+const float ADVERSARY_HEIGHT = 25.f;
+const float ADVERSARY_Y_OFFSET = 20.f;
 #endif      /* !PROPERTIES_HPP_ */

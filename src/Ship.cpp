@@ -34,7 +34,7 @@ void                    Ship::setX(const float& offsetX)
     if (offsetX < 0)
         this->_ship.setPosition(0, Y_OFFSET);
     else if (offsetX > (X_SIZE - LENGTH))
-        this->_ship.setPosition((640 - LENGTH), Y_OFFSET);
+        this->_ship.setPosition((X_SIZE - LENGTH), Y_OFFSET);
     else
         this->_ship.setPosition(offsetX, Y_OFFSET);
 }
