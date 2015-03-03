@@ -11,6 +11,9 @@ Game::Game(void)
     std::cout << "Game started" << std::endl;
 }
 
+/*
+ ** Delete everything
+ */
 Game::~Game(void)
 {
     delete this->_window;
@@ -20,11 +23,18 @@ Game::~Game(void)
     for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
         delete (*it);
     }
-
+   /*
+    *for (auto it = this->_.begin(); it != this->_.end(); ++it) {
+    *    delete (*it);
+    *}
+    */
     std::cout << "End of the game" << std::endl;
 }
 
-
+/*
+ ** Function to init every part of the game
+ ** Colors are distributed in a random way
+ */
 bool        Game::init(void)
 {
     float   pos;
@@ -45,7 +55,6 @@ bool        Game::init(void)
         y_offset = ADVERSARY_Y_OFFSET + (j * 50.f);
          for (int i = 0; i < 8; ++i) {
             dice_roll = distribution(generator);
-            std::cout << dice_roll << std::endl;
             color = what_color[dice_roll];
             pos = ((X_SIZE / 9) * i ) + (j * 10.f);
             this->_adversaries.push_back(new Adversary(std::pair<float, float>(pos, y_offset), color));
@@ -62,6 +71,7 @@ bool    Game::run(void)
     Ship        ship;
     int         pause;
 
+    (void)pause;
     while (this->_window->isOpen()) {
         while (this->_window->pollEvent(event)) {
             switch (event.type) {
@@ -80,7 +90,13 @@ bool    Game::run(void)
                             ship.setX(ship.getX() - SHIP_SPEED);
                             break ;
                         case sf::Keyboard::Space:
-                            std::cin >> pause;
+                            for (int i = 0; i < MAXBULLETS; ++i) {
+                                if (!this->_bullets[i].getOnScreen()) {
+                                    this->_bullets[i].setOnScreen(true);
+                                    this->_bullets[i].setPosition(ship.getPosition());
+                                    break ;
+                                }
+                            }
                             break ;
                         default:
                             break ;
@@ -97,10 +113,17 @@ bool    Game::run(void)
                 this->_window->draw((*it)->getWall());
             }
             for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-                (*it)->move();
+                if ((*it)->move()) {
+                    this->_window->close();
+                }
                 this->_window->draw((*it)->getShape());
             }
-
+            for (int i = 0; i < MAXBULLETS; ++i) {
+                if (this->_bullets[i].getOnScreen()){
+                    this->_bullets[i].update();
+                    this->_window->draw(this->_bullets[i].getShape());
+                }
+            }
             this->_window->display();
             clock.restart();
         }

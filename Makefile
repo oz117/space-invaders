@@ -11,7 +11,8 @@ SRCS	=	main.cpp			\
 			$(DIR_SRC)/Game.cpp	\
 			$(DIR_SRC)/Ship.cpp	\
 			$(DIR_SRC)/Wall.cpp	\
-			$(DIR_SRC)/Adversary.cpp
+			$(DIR_SRC)/Adversary.cpp	\
+			$(DIR_SRC)/Bullet.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 

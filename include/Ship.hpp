@@ -23,6 +23,7 @@ class   Ship {
         const float&            getX(void);
         void                    setX(const float& newX);
         void                    move(void);
+        const sf::Vector2f&     getPosition(void);
     protected:
         sf::RectangleShape  _ship;
 };

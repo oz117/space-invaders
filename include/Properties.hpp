@@ -1,3 +1,8 @@
+/*
+** Created by André Paulos
+** 4ndr3p4ul0s@gmail.com
+** Space Invaders like game
+*/
 #ifndef     PROPERTIES_HPP_
 # define    PROPERTIES_HPP_
 
@@ -6,7 +11,9 @@
  */
 const int   X_SIZE = 700;
 const int   Y_SIZE = 780;
+const int   WINDOW_GAME_LIMIT = 650;
 const int   FQ = 16;
+
 /*
  ** Wall properties
  */
@@ -14,6 +21,7 @@ const int   WALL_LIFE = 100;
 const float WALL_Y_OFFSET = 675.f;
 const float WALL_LENGTH = 55.f;
 const float WALL_HEIGHT = 30.f;
+
 /*
  ** Ship properties
  */
@@ -21,6 +29,7 @@ const float SHIP_SPEED = 10.f;
 const float Y_OFFSET = 730.f;
 const float LENGTH = 50.f;
 const float HEIGHT = 20.f;
+
 /*
  ** Adversary properties
  */
@@ -28,4 +37,11 @@ const int   ADVERSARY_SPEED = 1.f;
 const float ADVERSARY_LENGTH = 40.f;
 const float ADVERSARY_HEIGHT = 25.f;
 const float ADVERSARY_Y_OFFSET = 20.f;
+const float ADVERSARY_FALL_SPEED = 20.f;
+
+/*
+ ** Bullets properties
+ */
+const int   MAXBULLETS = 15;
+
 #endif      /* !PROPERTIES_HPP_ */

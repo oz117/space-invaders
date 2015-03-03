@@ -29,12 +29,20 @@ const sf::RectangleShape&       Adversary::getShape(void) const
     return (this->_shape);
 }
 
-void                            Adversary::move(void)
+/*
+ ** If return = true player has lost
+*/
+
+bool                            Adversary::move(void)
 {
     if ((this->_shape.getPosition().x + ADVERSARY_LENGTH) >= X_SIZE) {
-        this->_shape.setPosition(0 + ADVERSARY_SPEED,this->_shape.getPosition().y + 20.f);
+        this->_shape.setPosition(0 + ADVERSARY_SPEED,this->_shape.getPosition().y + ADVERSARY_FALL_SPEED);
     }
     else {
         this->_shape.setPosition(this->_shape.getPosition().x + ADVERSARY_SPEED,this->_shape.getPosition().y);
     }
+    if (this->_shape.getPosition().y + ADVERSARY_HEIGHT >= WINDOW_GAME_LIMIT) {
+        return (true);
+    }
+    return (false);
 }

@@ -8,7 +8,7 @@
 
 Ship::Ship(void)
 {
-    this->_ship.setFillColor(sf::Color(255, 255, 255, 150));
+    this->_ship.setFillColor(sf::Color::Green);
     this->_ship.setSize(sf::Vector2<float>(LENGTH, HEIGHT));
     this->_ship.setPosition(240, Y_OFFSET);
     std::cout << "Ship created" << std::endl;
@@ -27,6 +27,11 @@ sf::RectangleShape&     Ship::getShape(void)
 const float&            Ship::getX(void)
 {
     return (this->_ship.getPosition().x);
+}
+
+const sf::Vector2f&     Ship::getPosition(void)
+{
+    return (this->_ship.getPosition());
 }
 
 void                    Ship::setX(const float& offsetX)
