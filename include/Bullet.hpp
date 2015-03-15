@@ -20,12 +20,13 @@ class       Bullet {
         ~Bullet(void);
         void                        update(void);
         void                        setPosition(const sf::Vector2f& pos);
-        const sf::RectangleShape&   getShape(void);
+        const sf::Sprite&           getShape(void) const;
         void                        setOnScreen(bool isOnScreen);
         bool                        getOnScreen(void);
     protected:
-        bool                _onScreen;
-        sf::RectangleShape  _shape;
+        bool                        _onScreen;
+        sf::Sprite                  _sprite;
+        sf::Texture                 _bulletTexture;
 };
 
 #endif      // !BULLET_HPP_

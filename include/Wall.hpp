@@ -23,11 +23,12 @@ class       Wall {
         int                         getLife(void) const;
         const std::pair<float, float>&  getPos(void) const;
         void                        setLife(const int life);
-        const sf::RectangleShape&   getWall(void) const;
+        const sf::Sprite&           getWall(void) const;
     protected:
         int                         _life;
         std::pair<float, float>     _pos;
-        sf::RectangleShape          _wall;
+        sf::Sprite                  _wall;
+        sf::Texture                 _wallTexture;
 };
 
 #endif      /* !WALL_HPP_ */

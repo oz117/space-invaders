@@ -16,7 +16,6 @@ Adversary::Adversary(const std::pair<float, float>& pos, const sf::Color& color)
 
 Adversary::~Adversary(void)
 {
-    std::cout << "Adversary down" << std::endl;
 }
 
 const std::pair<float, float>&  Adversary::getPos(void) const

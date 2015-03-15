@@ -8,10 +8,11 @@
 
 Ship::Ship(void)
 {
-    this->_ship.setFillColor(sf::Color::Green);
-    this->_ship.setSize(sf::Vector2<float>(LENGTH, HEIGHT));
     this->_ship.setPosition(240, Y_OFFSET);
-    std::cout << "Ship created" << std::endl;
+    this->_shipTexture.loadFromFile("./Sprite/Ship.png");
+    this->_shipTexture.setSmooth(true);
+    this->_ship.setTexture(this->_shipTexture);
+    this->_ship.setScale(X_SCALE_FACTOR, Y_SCALE_FACTOR);
 }
 
 Ship::~Ship(void)
@@ -19,7 +20,7 @@ Ship::~Ship(void)
     std::cout << "Ship destroyed" << std::endl;
 }
 
-sf::RectangleShape&     Ship::getShape(void)
+sf::Sprite&     Ship::getSprite(void)
 {
     return (this->_ship);
 }
@@ -38,8 +39,8 @@ void                    Ship::setX(const float& offsetX)
 {
     if (offsetX < 0)
         this->_ship.setPosition(0, Y_OFFSET);
-    else if (offsetX > (X_SIZE - LENGTH))
-        this->_ship.setPosition((X_SIZE - LENGTH), Y_OFFSET);
+    else if (offsetX > (X_SIZE - SHIP_WIDTH))
+        this->_ship.setPosition((X_SIZE - SHIP_WIDTH), Y_OFFSET);
     else
         this->_ship.setPosition(offsetX, Y_OFFSET);
 }

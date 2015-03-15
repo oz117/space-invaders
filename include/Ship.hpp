@@ -19,13 +19,14 @@ class   Ship {
         Ship(void);
         ~Ship(void);
     public:
-        sf::RectangleShape&     getShape(void);
+        sf::Sprite&             getSprite(void);
         const float&            getX(void);
         void                    setX(const float& newX);
         void                    move(void);
         const sf::Vector2f&     getPosition(void);
     protected:
-        sf::RectangleShape  _ship;
+        sf::Sprite              _ship;
+        sf::Texture             _shipTexture;
 };
 
 #endif      /* !SHIP_HPP_*/

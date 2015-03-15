@@ -6,36 +6,38 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(void) {
-    this->_shape.setFillColor(sf::Color::Green);
-    this->_shape.setSize(sf::Vector2f(10.f, 10.f));
+Bullet::Bullet(void)
+{
+    this->_bulletTexture.loadFromFile("./Sprite/Ship_Bullet.png");
+    this->_sprite.setTexture(this->_bulletTexture);
+    this->_sprite.setScale(1.5f, 1.5f);
     this->_onScreen = false;
 }
 
 Bullet::~Bullet(void)
 {
-    std::cout << "Bullet destroyed" << std::endl;
 }
 
-const sf::RectangleShape&   Bullet::getShape(void)
+const sf::Sprite&   Bullet::getShape(void) const
 {
-    return (this->_shape);
+    return (this->_sprite);
 }
 
 void    Bullet::setPosition(const sf::Vector2f& pos)
 {
-    this->_shape.setPosition((pos.x + LENGTH / 2), pos.y - 5);
+    this->_sprite.setPosition((pos.x + ((SHIP_WIDTH - 8.0f)/ 2.0f)), (pos.y - SHIP_HEIGHT));
 }
 
 void    Bullet::update(void)
 {
-    if (this->_shape.getPosition().y < -10.f) {
+    if (this->_sprite.getPosition().y < -10.f) {
         this->_onScreen = false;
     }
-    this->_shape.setPosition(this->_shape.getPosition().x, this->_shape.getPosition().y - 3);
+    this->_sprite.setPosition(this->_sprite.getPosition().x, this->_sprite.getPosition().y - BULLET_SPEED);
 }
 
-void    Bullet::setOnScreen(bool isOnScreen) {
+void    Bullet::setOnScreen(bool isOnScreen)
+{
     this->_onScreen = isOnScreen;
 }
 

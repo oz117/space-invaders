@@ -36,6 +36,7 @@ class   Game {
  public:
     bool    init(void);
     bool    run(void);
+    void    collision(Bullet& current_bullet);
  protected:
     sf::RenderWindow        *_window;
     std::vector<Wall*>      _walls;

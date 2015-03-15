@@ -18,17 +18,19 @@ const int   FQ = 16;
  ** Wall properties
  */
 const int   WALL_LIFE = 100;
-const float WALL_Y_OFFSET = 675.f;
-const float WALL_LENGTH = 55.f;
+const float WALL_Y_OFFSET = 630.f;
+const float WALL_LENGTH = 66.f;
 const float WALL_HEIGHT = 30.f;
 
 /*
  ** Ship properties
  */
 const float SHIP_SPEED = 10.f;
-const float Y_OFFSET = 730.f;
-const float LENGTH = 50.f;
-const float HEIGHT = 20.f;
+const float Y_OFFSET = 740.f;
+const float SHIP_WIDTH = 52.f;
+const float SHIP_HEIGHT = 22.f;
+const float X_SCALE_FACTOR = 2.0f;
+const float Y_SCALE_FACTOR = 2.0f;
 
 /*
  ** Adversary properties
@@ -42,6 +44,7 @@ const float ADVERSARY_FALL_SPEED = 20.f;
 /*
  ** Bullets properties
  */
+const float BULLET_SPEED = 3.0f;
 const int   MAXBULLETS = 15;
 
 #endif      /* !PROPERTIES_HPP_ */

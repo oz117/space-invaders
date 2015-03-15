@@ -2,10 +2,11 @@
 
 Wall::Wall(const std::pair<float, float>& pos)
 {
+    this->_wallTexture.loadFromFile("./Sprite/Wall.png");
+    this->_wall.setScale(1.5f, 1.5f);
+    this->_wall.setTexture(this->_wallTexture);
     this->_pos = pos;
     this->_life = WALL_LIFE;
-    this->_wall.setSize(sf::Vector2<float>(WALL_LENGTH, WALL_HEIGHT));
-    this->_wall.setFillColor(sf::Color::Red);
     this->_wall.setPosition(sf::Vector2<float>(pos.first, pos.second));
 }
 
@@ -34,7 +35,7 @@ void    Wall::setLife(const int life)
     }
 }
 
-const sf::RectangleShape&   Wall::getWall(void) const
+const sf::Sprite&   Wall::getWall(void) const
 {
     return (this->_wall);
 }

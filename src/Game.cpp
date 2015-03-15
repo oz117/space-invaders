@@ -23,11 +23,6 @@ Game::~Game(void)
     for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
         delete (*it);
     }
-   /*
-    *for (auto it = this->_.begin(); it != this->_.end(); ++it) {
-    *    delete (*it);
-    *}
-    */
     std::cout << "End of the game" << std::endl;
 }
 
@@ -63,15 +58,26 @@ bool        Game::init(void)
     return (true);
 }
 
+void    Game::collision(Bullet& current_bullet)
+{
+    sf::FloatRect boundingBox = current_bullet.getShape().getGlobalBounds();
+
+    for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
+        if (boundingBox.intersects((*it)->getShape().getGlobalBounds())) {
+            current_bullet.setOnScreen(false);
+            this->_adversaries.erase(it);
+            return ;
+        }
+    }
+}
+
 bool    Game::run(void)
 {
     sf::Event   event;
     sf::Clock   clock;
     sf::Time    elapsed;
     Ship        ship;
-    int         pause;
 
-    (void)pause;
     while (this->_window->isOpen()) {
         while (this->_window->pollEvent(event)) {
             switch (event.type) {
@@ -108,7 +114,14 @@ bool    Game::run(void)
         elapsed = clock.getElapsedTime();
         if (FQ <= elapsed.asMilliseconds()) {
             this->_window->clear();
-            this->_window->draw(ship.getShape());
+            this->_window->draw(ship.getSprite());
+            for (int i = 0; i < MAXBULLETS; ++i) {
+                if (this->_bullets[i].getOnScreen()){
+                    this->_bullets[i].update();
+                    this->collision(this->_bullets[i]);
+                    this->_window->draw(this->_bullets[i].getShape());
+                }
+            }
             for (auto it = this->_walls.begin(); it != this->_walls.end(); ++it) {
                 this->_window->draw((*it)->getWall());
             }
@@ -118,15 +131,12 @@ bool    Game::run(void)
                 }
                 this->_window->draw((*it)->getShape());
             }
-            for (int i = 0; i < MAXBULLETS; ++i) {
-                if (this->_bullets[i].getOnScreen()){
-                    this->_bullets[i].update();
-                    this->_window->draw(this->_bullets[i].getShape());
-                }
-            }
+
             this->_window->display();
             clock.restart();
         }
+        if (this->_adversaries.size() == 0)
+            return (true);
     }
     return (false);
 }
