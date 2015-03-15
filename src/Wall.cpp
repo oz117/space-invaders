@@ -1,3 +1,8 @@
+/*
+** Created by André Paulos
+** andre.paulos@epitech.eu
+** Space Invaders game like
+*/
 #include "Wall.hpp"
 
 Wall::Wall(const std::pair<float, float>& pos)
