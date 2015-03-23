@@ -5,10 +5,13 @@
 */
 
 #include <iostream>
-#include <cstdlib>
+#include "Game.hpp"
 
-int     main(void)
+int         main(void)
 {
+    Game    game;
 
+    game.init();
+    game.run();
     return (EXIT_SUCCESS);
 }

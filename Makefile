@@ -7,8 +7,13 @@ CXX	= clang++
 
 DIR_SRC	= ./src
 
-SRCS	=	main.cpp	\
-			Component.cpp
+SRCS	=	main.cpp			\
+			$(DIR_SRC)/Game.cpp	\
+			$(DIR_SRC)/Ship.cpp	\
+			$(DIR_SRC)/Wall.cpp	\
+			$(DIR_SRC)/Adversary.cpp	\
+			$(DIR_SRC)/Bullet.cpp
+
 OBJS	= $(SRCS:.cpp=.o)
 
 CXXFLAGS	= -I./include
@@ -17,7 +22,7 @@ CXXFLAGS	+= -Wall -Werror -Wextra
 
 CXXFLAGS	+= -g3
 
-CXXFLAGS	+= -O3
+CXXFLAGS	+= -std=c++11
 
 LDFLAGS		= -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -29,7 +34,7 @@ all	: $(NAME)
 
 $(NAME)	: $(OBJS)
 	@echo "\t\033[33mCompiling...\033[39m"
-	@$(CXX) $(OBJS) $(CXXFLAGS) $(LDFLAGS) -o $(NAME)
+	@$(CXX) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "\t\033[32mSuccess!\033[39m"
 
 clean	:
