@@ -7,12 +7,14 @@ CXX	= clang++
 
 DIR_SRC	= ./src
 
-SRCS	=	main.cpp			\
-			$(DIR_SRC)/Game.cpp	\
-			$(DIR_SRC)/Ship.cpp	\
-			$(DIR_SRC)/Wall.cpp	\
+SRCS	=	main.cpp					\
+			$(DIR_SRC)/Game.cpp			\
+			$(DIR_SRC)/Ship.cpp			\
+			$(DIR_SRC)/Wall.cpp			\
 			$(DIR_SRC)/Adversary.cpp	\
-			$(DIR_SRC)/Bullet.cpp
+			$(DIR_SRC)/Bullet.cpp		\
+			$(DIR_SRC)/Sprite.cpp		\
+			$(DIR_SRC)/ISfml.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
