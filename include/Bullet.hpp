@@ -1,7 +1,9 @@
 /*
-** Created by André Paulos
-** 4ndr3p4ul0s@gmail.com
-** Space Invaders like game
+** File: [Bullet.hpp]
+** Author: zero.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-04-13 20:10
+**
 */
 
 #ifndef     BULLET_HPP_

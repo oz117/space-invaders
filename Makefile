@@ -14,7 +14,8 @@ SRCS	=	main.cpp					\
 			$(DIR_SRC)/Adversary.cpp	\
 			$(DIR_SRC)/Bullet.cpp		\
 			$(DIR_SRC)/Sprite.cpp		\
-			$(DIR_SRC)/ISfml.cpp
+			$(DIR_SRC)/ISfml.cpp		\
+			$(DIR_SRC)/SFMLLoader.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 

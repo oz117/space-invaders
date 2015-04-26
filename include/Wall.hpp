@@ -9,26 +9,22 @@
 
 # include   <utility>
 # include   <SFML/Graphics.hpp>
+# include   "Sprite.hpp"
 # include   "Properties.hpp"
 
 class       Wall {
     private:
-        Wall(void);
         Wall&   operator=(const Wall& other);
         Wall(const Wall& other);
     public:
-        Wall(const std::pair<float, float>& pos);
+        Wall(const std::string& nameOfSprite, const std::string& nbOfSprite);
         ~Wall(void);
     public:
         int                         getLife(void) const;
-        const std::pair<float, float>&  getPos(void) const;
         void                        setLife(const int life);
-        const sf::Sprite&           getWall(void) const;
     protected:
         int                         _life;
-        std::pair<float, float>     _pos;
-        sf::Sprite                  _wall;
-        sf::Texture                 _wallTexture;
+        Sprite                      _wall_sprite;
 };
 
 #endif      /* !WALL_HPP_ */

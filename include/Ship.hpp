@@ -1,17 +1,21 @@
 /*
-** Created by André Paulos
-** andre.paulos@epitech.eu
-** Space Invaders game like
+** File: [Ship.hpp]
+** Author: zero.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-04-13 20:11
+**
 */
 
 #ifndef     SHIP_HPP_
 # define    SHIP_HPP_
 
 # include   <iostream>
-# include   <SFML/Graphics.hpp>
+# include   "Sprite.hpp"
 # include   "Properties.hpp"
+# include   "IRenderer.hpp"
+# include   "Typedefs.hpp"
 
-class   Ship {
+class                   Ship {
     private:
         Ship(const Ship& other);
         Ship& operator=(const Ship& other);
@@ -19,14 +23,14 @@ class   Ship {
         Ship(void);
         ~Ship(void);
     public:
-        sf::Sprite&             getSprite(void);
-        const float&            getX(void);
-        void                    setX(const float& newX);
-        void                    move(void);
-        const sf::Vector2f&     getPosition(void);
+        const float&    getX(void) const;
+        const pair2f&   getPosition(void) const;
+        void            setPosition(const pair2f& pos);
+        void            checkPosition(pair2f& newPosition);
+        void            move(Keys::Key direction);
     protected:
-        sf::Sprite              _ship;
-        sf::Texture             _shipTexture;
+        Sprite          _ship_sprite;
+        pair2f          _pos;
 };
 
 #endif      /* !SHIP_HPP_*/

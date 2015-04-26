@@ -1,142 +1,89 @@
 /*
-** Created by André Paulos
-** andre.paulos@epitech.eu
-** Space Invaders game like
+** File: [Game.cpp]
+** Author: zero.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-04-09 23:37
+**
 */
 
 #include "Game.hpp"
 
-Game::Game(void)
-{
+Game::Game(void) {
     std::cout << "Game started" << std::endl;
 }
 
-/*
- ** Delete everything
- */
-Game::~Game(void)
-{
-    delete this->_window;
-    for (auto it = this->_walls.begin(); it != this->_walls.end(); ++it) {
-        delete (*it);
-    }
-    for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-        delete (*it);
-    }
+    Game::~Game(void) {
     std::cout << "End of the game" << std::endl;
 }
 
-/*
- ** Function to init every part of the game
- ** Colors are distributed in a random way
- */
-bool        Game::init(void)
-{
-    float   pos;
-    float   y_offset;
-    int     dice_roll;
-    sf::Color   color;
-    std::default_random_engine  generator;
-    std::uniform_int_distribution<int>  distribution(0, 6);
+bool                    Game::init(void) {
+    float               pos;
+    std::stringstream   ss;
+    float               y_offset;
 
-    pos = 0;
-    this->_window = new sf::RenderWindow(sf::VideoMode(X_SIZE, Y_SIZE), "Space Invaders");
-    this->_window->setVerticalSyncEnabled(true);
+    this->_window = new ISfml();
+    dynamic_cast<ISfml*>(this->_window)->_loader.load("Ship", PATH_SHIP_SPRITE_100, this->_ship.getPosition());
+    ss.clear();
     for (int i = 0; i < 5; ++i) {
+        ss.str("");
+        ss.clear();
+        ss << i;
         pos = ((X_SIZE / 6) * (i + 1)) - (WALL_LENGTH / 2);
-        this->_walls.push_back(new Wall(std::pair<float, float>(pos, WALL_Y_OFFSET)));
+        this->_walls.push_back(new Wall("Wall", ss.str()));
+        dynamic_cast<ISfml*>(this->_window)->_loader.load("Wall" + ss.str(), PATH_WALL_SPRITE_100, pair2f(pos, WALL_Y_OFFSET));
     }
-    for (int j = 0; j < 5; ++j) {
+    for (int j = 0; j < 2; ++j) {
         y_offset = ADVERSARY_Y_OFFSET + (j * 50.f);
-         for (int i = 0; i < 8; ++i) {
-            dice_roll = distribution(generator);
-            color = what_color[dice_roll];
-            pos = ((X_SIZE / 9) * i ) + (j * 10.f);
-            this->_adversaries.push_back(new Adversary(std::pair<float, float>(pos, y_offset), color));
+        for (int i = 0; i < 11; ++i) {
+            ss.str("");
+            ss.clear();
+            ss << i;
+            pos = ((X_SIZE / 12) * i);
+            this->_adversaries.push_back(new Adversary(PATH_ADVERSARY_SPRITES[j], pair2f(pos, y_offset), ss.str()));
+            dynamic_cast<ISfml*>(this->_window)->_loader.load(PATH_ADVERSARY_SPRITES[j][0].first + ss.str(), PATH_ADVERSARY_SPRITES[j][0].second, pair2f(pos, y_offset));
         }
     }
     return (true);
 }
 
-void    Game::collision(Bullet& current_bullet)
-{
-    sf::FloatRect boundingBox = current_bullet.getShape().getGlobalBounds();
+/*
+ *void    Game::collision(Bullet& current_bullet) {
+ *    (void) current_bullet;
+ *    sf::FloatRect boundingBox = current_bullet.getShape().getGlobalBounds();
+ *
+ *    for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
+ *        if (boundingBox.intersects((*it)->getShape().getGlobalBounds())) {
+ *            current_bullet.setOnScreen(false);
+ *            this->_adversaries.erase(it);
+ *            return ;
+ *        }
+ *    }
+ *}
+ */
 
+void    Game::updatePosition(Keys::Key key) {
+    this->_ship.move(key);
     for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-        if (boundingBox.intersects((*it)->getShape().getGlobalBounds())) {
-            current_bullet.setOnScreen(false);
-            this->_adversaries.erase(it);
-            return ;
-        }
+        (*it)->move();
+        dynamic_cast<ISfml*>(this->_window)->_loader.updateSprite((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getSprite().getPathNextSprite());
+        this->_window->updatePosition((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getPosition());
     }
+    this->_window->updatePosition("Ship", this->_ship.getPosition());
 }
 
-bool    Game::run(void)
-{
-    sf::Event   event;
-    sf::Clock   clock;
-    sf::Time    elapsed;
-    Ship        ship;
+bool            Game::run(void) {
+    bool        isOpen;
+    Keys::Key   key;
 
-    while (this->_window->isOpen()) {
-        while (this->_window->pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::Closed :
-                    this->_window->close();
-                    break;
-                case sf::Event::KeyPressed:
-                    switch (event.key.code) {
-                        case sf::Keyboard::Escape :
-                            this->_window->close();
-                            break ;
-                        case sf::Keyboard::Right:
-                            ship.setX(ship.getX() + SHIP_SPEED);
-                            break ;
-                        case sf::Keyboard::Left:
-                            ship.setX(ship.getX() - SHIP_SPEED);
-                            break ;
-                        case sf::Keyboard::Space:
-                            for (int i = 0; i < MAXBULLETS; ++i) {
-                                if (!this->_bullets[i].getOnScreen()) {
-                                    this->_bullets[i].setOnScreen(true);
-                                    this->_bullets[i].setPosition(ship.getPosition());
-                                    break ;
-                                }
-                            }
-                            break ;
-                        default:
-                            break ;
-                    }
-                default:
-                    break;
-            }
-        }
-        elapsed = clock.getElapsedTime();
-        if (FQ <= elapsed.asMilliseconds()) {
-            this->_window->clear();
-            this->_window->draw(ship.getSprite());
-            for (int i = 0; i < MAXBULLETS; ++i) {
-                if (this->_bullets[i].getOnScreen()){
-                    this->_bullets[i].update();
-                    this->collision(this->_bullets[i]);
-                    this->_window->draw(this->_bullets[i].getShape());
-                }
-            }
-            for (auto it = this->_walls.begin(); it != this->_walls.end(); ++it) {
-                this->_window->draw((*it)->getWall());
-            }
-            for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-                if ((*it)->move()) {
-                    this->_window->close();
-                }
-                this->_window->draw((*it)->getShape());
-            }
-
-            this->_window->display();
-            clock.restart();
-        }
-        if (this->_adversaries.size() == 0)
-            return (true);
+    isOpen = true;
+    while (isOpen) {
+        key = this->_window->handleInput();
+        if (key == Keys::Key::ESC)
+            return (this->_window->closeWindow());
+        this->updatePosition(key);
+        this->_window->clear();
+        this->_window->draw();
+        this->_window->display();
     }
-    return (false);
+    return (true);
 }

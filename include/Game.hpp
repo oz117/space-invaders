@@ -1,30 +1,22 @@
 /*
-** Created by André Paulos
-** andre.paulos@epitech.eu
-** Space Invaders game like
+** File: [Game.hpp]
+** Author: zero.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-04-09 23:38
+**
 */
 
 #ifndef     GAME_HPP_
 # define    GAME_HPP_
 
 # include   <iostream>
-# include   <random>
-# include   <cstdlib>
-# include   <SFML/Graphics.hpp>
+# include   <sstream>
+# include   "ISfml.hpp"
 # include   "Ship.hpp"
 # include   "Wall.hpp"
 # include   "Adversary.hpp"
 # include   "Bullet.hpp"
-
-const sf::Color what_color[] = {
-    sf::Color::White,
-    sf::Color::Red,
-    sf::Color::Green,
-    sf::Color::Blue,
-    sf::Color::Yellow,
-    sf::Color::Magenta,
-    sf::Color::Cyan
-};
+# include   "Typedefs.hpp"
 
 class   Game {
  private:
@@ -34,14 +26,15 @@ class   Game {
     Game(void);
     ~Game(void);
  public:
-    bool    init(void);
-    bool    run(void);
-    void    collision(Bullet& current_bullet);
+    bool                    init(void);
+    bool                    run(void);
+    void                    updatePosition(Keys::Key direction);
  protected:
-    sf::RenderWindow        *_window;
+    IRenderer               *_window;
+    Ship                    _ship;
     std::vector<Wall*>      _walls;
+    //std::vector<std::vector<Adversary*>>    _adversaries;
     std::vector<Adversary*> _adversaries;
-    Bullet                  _bullets[MAXBULLETS];
 };
 
 #endif      /* !GAME_HPP_ */

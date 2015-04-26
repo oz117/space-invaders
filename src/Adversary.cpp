@@ -1,47 +1,49 @@
 /*
-** Created by André Paulos
-** 4ndr3p4ul0s@gmail.com
-** Space Invaders like game
+** File: [Adversary.cpp]
+** Author: zero.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-04-17 21:00
+**
 */
 
 #include "Adversary.hpp"
 
-Adversary::Adversary(const std::pair<float, float>& pos, const sf::Color& color)
-{
+Adversary::Adversary(const std::vector<pair2s>& sprites, const pair2f& pos, const std::string& nbOfSprite) {
+    this->_adversary_sprite.create(sprites, pair2i(0, 0), nbOfSprite);
     this->_pos = pos;
-    this->_shape.setSize(sf::Vector2f(ADVERSARY_LENGTH, ADVERSARY_HEIGHT));
-    this->_shape.setFillColor(color);
-    this->_shape.setPosition(pos.first, pos.second);
 }
 
-Adversary::~Adversary(void)
-{
+Adversary::~Adversary(void) {
 }
 
-const std::pair<float, float>&  Adversary::getPos(void) const
-{
+const float&    Adversary::getX(void) const {
+    return (this->_pos.first);
+}
+
+const pair2f&   Adversary::getPosition(void) const {
     return (this->_pos);
 }
 
-const sf::RectangleShape&       Adversary::getShape(void) const
-{
-    return (this->_shape);
+void            Adversary::setPosition(const pair2f& newPosition) {
+    this->_pos = newPosition;
 }
 
-/*
- ** If return = true player has lost
-*/
+void            Adversary::checkPosition(pair2f& newPosition) {
+    if (newPosition.first >= X_SIZE) {
+        newPosition.first = 0;
+        newPosition.second += ADVERSARY_FALL_SPEED;
+    }
+}
 
-bool                            Adversary::move(void)
-{
-    if ((this->_shape.getPosition().x + ADVERSARY_LENGTH) >= X_SIZE) {
-        this->_shape.setPosition(0 + ADVERSARY_SPEED,this->_shape.getPosition().y + ADVERSARY_FALL_SPEED);
-    }
-    else {
-        this->_shape.setPosition(this->_shape.getPosition().x + ADVERSARY_SPEED,this->_shape.getPosition().y);
-    }
-    if (this->_shape.getPosition().y + ADVERSARY_HEIGHT >= WINDOW_GAME_LIMIT) {
-        return (true);
-    }
-    return (false);
+Sprite&   Adversary::getSprite(void) {
+    return (this->_adversary_sprite);
+}
+
+void            Adversary::move(void) {
+    pair2f      newPosition;
+
+    newPosition = this->getPosition();
+    newPosition.first += ADVERSARY_SPEED;
+    checkPosition(newPosition);
+    this->setPosition(newPosition);
 }

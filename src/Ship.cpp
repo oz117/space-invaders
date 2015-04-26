@@ -6,41 +6,49 @@
 
 #include "Ship.hpp"
 
-Ship::Ship(void)
-{
-    this->_ship.setPosition(240, Y_OFFSET);
-    this->_shipTexture.loadFromFile("./Sprite/Ship.png");
-    this->_shipTexture.setSmooth(true);
-    this->_ship.setTexture(this->_shipTexture);
-    this->_ship.setScale(X_SCALE_FACTOR, Y_SCALE_FACTOR);
+Ship::Ship(void) {
+    std::vector<pair2s> sprites;
+
+    sprites.push_back(pair2s("Ship", PATH_SHIP_SPRITE_100));
+    this->_ship_sprite.create(sprites, pair2i(0, 0), "");
+    this->_pos.first = (X_SIZE - (SHIP_WIDTH / 2)) / 2;
+    this->_pos.second = SHIP_Y_OFFSET;
 }
 
-Ship::~Ship(void)
-{
+Ship::~Ship(void) {
     std::cout << "Ship destroyed" << std::endl;
 }
 
-sf::Sprite&     Ship::getSprite(void)
-{
-    return (this->_ship);
+const float&    Ship::getX(void) const {
+    return (this->_pos.first);
 }
 
-const float&            Ship::getX(void)
-{
-    return (this->_ship.getPosition().x);
+const pair2f&   Ship::getPosition(void) const {
+    return (this->_pos);
 }
 
-const sf::Vector2f&     Ship::getPosition(void)
-{
-    return (this->_ship.getPosition());
+void            Ship::setPosition(const pair2f& pos) {
+    this->_pos = pos;
 }
 
-void                    Ship::setX(const float& offsetX)
-{
-    if (offsetX < 0)
-        this->_ship.setPosition(0, Y_OFFSET);
-    else if (offsetX > (X_SIZE - SHIP_WIDTH))
-        this->_ship.setPosition((X_SIZE - SHIP_WIDTH), Y_OFFSET);
-    else
-        this->_ship.setPosition(offsetX, Y_OFFSET);
+void            Ship::checkPosition(pair2f& newPosition) {
+    if (newPosition.first < 0) {
+        newPosition.first = 0;
+    }
+    else if (newPosition.first > (X_SIZE - SHIP_WIDTH)) {
+        newPosition.first = X_SIZE - SHIP_WIDTH;
+    }
+}
+
+void            Ship::move(Keys::Key key) {
+    pair2f      newPosition;
+
+    newPosition.second = SHIP_Y_OFFSET;
+    newPosition.first = this->getX();
+    if (key == Keys::Key::RIGHT)
+        newPosition.first += SHIP_SPEED;
+    else if (key == Keys::Key::LEFT)
+        newPosition.first -= SHIP_SPEED;
+    this->checkPosition(newPosition);
+    this->setPosition(newPosition);
 }

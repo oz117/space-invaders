@@ -5,42 +5,27 @@
 */
 #include "Wall.hpp"
 
-Wall::Wall(const std::pair<float, float>& pos)
-{
-    this->_wallTexture.loadFromFile("./Sprite/Wall.png");
-    this->_wall.setScale(1.5f, 1.5f);
-    this->_wall.setTexture(this->_wallTexture);
-    this->_pos = pos;
+Wall::Wall(const std::string& nameOfSprite, const std::string& nbOfSprite) {
+    std::vector<pair2s> sprites;
+
+    sprites.push_back(pair2s(nameOfSprite, PATH_WALL_SPRITE_100));
+    this->_wall_sprite.create(sprites, pair2i(0, 0), nbOfSprite);
     this->_life = WALL_LIFE;
-    this->_wall.setPosition(sf::Vector2<float>(pos.first, pos.second));
 }
 
-Wall::~Wall(void)
-{
+Wall::~Wall(void) {
 
 }
 
-int     Wall::getLife(void) const
-{
+int     Wall::getLife(void) const {
     return (this->_life);
 }
 
-const std::pair<float, float>&  Wall::getPos(void) const
-{
-    return (this->_pos);
-}
-
-void    Wall::setLife(const int life)
-{
+void    Wall::setLife(const int life) {
     if (this->_life - life < 0) {
         this->_life = 0;
     }
     else {
         this->_life -= life;
     }
-}
-
-const sf::Sprite&   Wall::getWall(void) const
-{
-    return (this->_wall);
 }
