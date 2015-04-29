@@ -5,6 +5,8 @@ ISfml::ISfml(void) {
     this->_window.setVerticalSyncEnabled(false);
     this->_window.setKeyRepeatEnabled(true);
     this->_window.setPosition(sf::Vector2i(200,200));
+    this->_window.setVerticalSyncEnabled(true);
+    this->_window.setFramerateLimit(60);
 }
 
 ISfml::~ISfml(void) {

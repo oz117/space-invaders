@@ -32,9 +32,9 @@ bool                    Game::init(void) {
         this->_walls.push_back(new Wall("Wall", ss.str()));
         dynamic_cast<ISfml*>(this->_window)->_loader.load("Wall" + ss.str(), PATH_WALL_SPRITE_100, pair2f(pos, WALL_Y_OFFSET));
     }
-    for (int j = 0; j < 2; ++j) {
+    for (size_t j = 0; j < PATH_ADVERSARY_SPRITES.size(); ++j) {
         y_offset = ADVERSARY_Y_OFFSET + (j * 50.f);
-        for (int i = 0; i < 11; ++i) {
+        for (int i = 0; i < ADVERSARY_PER_LINE; ++i) {
             ss.str("");
             ss.clear();
             ss << i;

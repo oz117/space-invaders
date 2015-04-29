@@ -53,16 +53,27 @@ const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_2
     {"Adversary2-1-", "./Sprite/Adversary2-2.png"},
 };
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_3 = {
-    {"Adversary3-1-", "./Sprite/Adversary3-1.png"},
-    {"Adversary3-1-", "./Sprite/Adversary3-2.png"},
+    {"Adversary3-1-", "./Sprite/Adversary2-1.png"},
+    {"Adversary3-1-", "./Sprite/Adversary2-2.png"},
+};
+const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_4 = {
+    {"Adversary4-1-", "./Sprite/Adversary3-1.png"},
+    {"Adversary4-1-", "./Sprite/Adversary3-2.png"},
+};
+const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_5 = {
+    {"Adversary5-1-", "./Sprite/Adversary3-1.png"},
+    {"Adversary5-1-", "./Sprite/Adversary3-2.png"},
 };
 
 const std::vector<std::vector<pair2s>>  PATH_ADVERSARY_SPRITES = {
     PATH_ADVERSARY_SPRITES_1,
     PATH_ADVERSARY_SPRITES_2,
-    PATH_ADVERSARY_SPRITES_3
+    PATH_ADVERSARY_SPRITES_3,
+    PATH_ADVERSARY_SPRITES_4,
+    PATH_ADVERSARY_SPRITES_5
 };
-const int           ADVERSARY_SPEED = 1.f;
+const int           ADVERSARY_SPEED = 2.f;
+const int           ADVERSARY_PER_LINE = 11;
 const float         ADVERSARY_LENGTH = 40.f;
 const float         ADVERSARY_HEIGHT = 25.f;
 const float         ADVERSARY_Y_OFFSET = 20.f;

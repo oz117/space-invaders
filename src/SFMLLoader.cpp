@@ -15,6 +15,9 @@ SFMLLoader::~SFMLLoader(void) {
     for (auto it = this->_sprites.begin(); it != this->_sprites.end(); ++it) {
         delete (*it).second;
     }
+    for (auto it = this->_textures.begin(); it != this->_textures.end(); ++it) {
+        delete (*it).second;
+    }
 }
 
 std::map<std::string, sf::Sprite*>& SFMLLoader::getSprites(void) {
@@ -28,11 +31,13 @@ void            SFMLLoader::load(const std::string& nameOfSprite, const std::str
 
     if (!texture->loadFromFile(pathToFile)){
         std::cerr << "Error could not load " << nameOfSprite << std::endl;
+        return ;
     }
     texture->setSmooth(true);
     sprite->setTexture(*texture);
     sprite->setPosition(pos.first, pos.second);
     this->_sprites.insert(std::pair<std::string, sf::Sprite*>(nameOfSprite, sprite));
+    this->_textures.insert(std::pair<std::string, sf::Texture*>(nameOfSprite, texture));
 }
 
 void            SFMLLoader::setPosition(const std::string& nameOfSprite, const sf::Vector2f& newPos) {
@@ -44,20 +49,19 @@ sf::Sprite*     SFMLLoader::findSprite(const std::string& nameOfSprite) {
 }
 
 bool            SFMLLoader::updateSprite(const std::string& nameOfSprite, const std::string& pathToFile) {
-    sf::Texture *new_texture = new sf::Texture();
-    sf::Sprite  *new_sprite = new sf::Sprite();
-    sf::Sprite  *old_sprite = NULL;
+    sf::Texture *texture;
+    sf::Sprite  *sprite;
 
-    old_sprite = this->_sprites.find(nameOfSprite)->second;
-    if (!old_sprite) {
+    sprite = NULL;
+    texture = NULL;
+    sprite = this->_sprites.find(nameOfSprite)->second;
+    texture = this->_textures.find(nameOfSprite)->second;
+    if (!sprite || !texture) {
         std::cerr << "No sprite found" << std::endl;
         return (false);
     }
-    new_texture->loadFromFile(pathToFile);
-    new_texture->setSmooth(true);
-    new_sprite->setTexture(*new_texture);
-    new_sprite->setPosition(old_sprite->getPosition().x, old_sprite->getPosition().y);
-    this->_sprites[nameOfSprite] = new_sprite;
-    delete old_sprite;
+    texture->loadFromFile(pathToFile);
+    texture->setSmooth(true);
+    sprite->setTexture(*texture);
     return (true);
 }

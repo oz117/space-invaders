@@ -28,7 +28,8 @@ class       SFMLLoader {
         bool                                    updateSprite(const std::string& nameOfSprite, const std::string& pathToFile);
         std::map<std::string, sf::Sprite*>&     getSprites(void);
     protected:
-        std::map<std::string, sf::Sprite*>  _sprites;
+        std::map<std::string, sf::Sprite*>      _sprites;
+        std::map<std::string, sf::Texture*>     _textures;
 };
 
 #endif      // !SFMLLOADER_HPP_
