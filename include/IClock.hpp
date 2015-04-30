@@ -9,12 +9,13 @@
 #ifndef     ICLOCK_HPP_
 # define    ICLOCK_HPP_
 
-class                   Clock {
+class                   IClock {
     public:
-        virtual         ~Clock(void) {};
-        virtual void    startClock(void);
-        virtual int     getElapsedTimeAsMilliseconds(void) const;
-        virtual void    retartClock(void);
-}
+        virtual         ~IClock(void) {};
+        virtual void    start(void) = 0;
+        virtual int     getElapsedTimeAsMilliseconds(void) = 0;
+        virtual int     getElapsedTimeAsSeconds(void) = 0;
+        virtual void    restart(void) = 0;
+};
 
 #endif      // !ICLOCK_HPP_

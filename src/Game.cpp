@@ -61,29 +61,52 @@ bool                    Game::init(void) {
  *}
  */
 
-void    Game::updatePosition(Keys::Key key) {
-    this->_ship.move(key);
+void    Game::updatePosition() {
     for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-        (*it)->move();
-        dynamic_cast<ISfml*>(this->_window)->_loader.updateSprite((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getSprite().getPathNextSprite());
         this->_window->updatePosition((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getPosition());
     }
     this->_window->updatePosition("Ship", this->_ship.getPosition());
 }
 
+void    Game::updateAnimation(void) {
+    for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
+        (*it)->move();
+        dynamic_cast<ISfml*>(this->_window)->_loader.updateSprite((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getSprite().getPathNextSprite());
+    }
+}
+
 bool            Game::run(void) {
     bool        isOpen;
     Keys::Key   key;
+    IClock*     gameClock;
+    IClock*     animationClock;
 
+    gameClock = new ISfmlClock();
+    animationClock = new ISfmlClock();
+    gameClock->start();
+    animationClock->start();
     isOpen = true;
     while (isOpen) {
         key = this->_window->handleInput();
-        if (key == Keys::Key::ESC)
-            return (this->_window->closeWindow());
-        this->updatePosition(key);
-        this->_window->clear();
-        this->_window->draw();
-        this->_window->display();
+        if (key == Keys::Key::ESC) {
+                delete gameClock;
+                delete animationClock;
+                return (this->_window->closeWindow());
+        }
+        this->_ship.move(key);
+        if (animationClock->getElapsedTimeAsSeconds() >= 1) {
+            this->updateAnimation();
+            animationClock->restart();
+        }
+        if (FQ <= gameClock->getElapsedTimeAsMilliseconds()) {
+            this->updatePosition();
+            this->_window->clear();
+            this->_window->draw();
+            this->_window->display();
+            gameClock->restart();
+        }
     }
+    delete gameClock;
+    delete animationClock;
     return (true);
 }

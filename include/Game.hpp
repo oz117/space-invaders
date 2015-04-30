@@ -14,6 +14,7 @@
 # include   "ISfml.hpp"
 # include   "Ship.hpp"
 # include   "Wall.hpp"
+# include   "ISfmlClock.hpp"
 # include   "Adversary.hpp"
 # include   "Bullet.hpp"
 # include   "Typedefs.hpp"
@@ -28,7 +29,8 @@ class   Game {
  public:
     bool                    init(void);
     bool                    run(void);
-    void                    updatePosition(Keys::Key direction);
+    void                    updatePosition(void);
+    void                    updateAnimation(void);
  protected:
     IRenderer               *_window;
     Ship                    _ship;

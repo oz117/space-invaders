@@ -9,8 +9,23 @@
 #ifndef     ISFMLCLOCK_HPP_
 # define    ISFMLCLOCK_HPP_
 
-class ISfmlClock : public IClock {
+# include   <SFML/System.hpp>
+# include   "IClock.hpp"
 
-}
+class ISfmlClock : public IClock {
+    private:
+        ISfmlClock(const ISfmlClock& other);
+        ISfmlClock& operator=(const ISfmlClock& other);
+    public:
+        ISfmlClock(void);
+        ~ISfmlClock(void);
+        void        start(void);
+        int         getElapsedTimeAsSeconds(void);
+        int         getElapsedTimeAsMilliseconds(void);
+        void        restart(void);
+    private:
+        sf::Clock   _clock;
+        sf::Time    _timeElapsed;
+};
 
 #endif      // !ISFMLCLOCK_HPP_

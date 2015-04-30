@@ -67,6 +67,5 @@ const std::string&              Sprite::getPathNextSprite(void) {
         this->setCurrentSprite(0);
         this->setNextSprite(1);
     }
-    //std::cout << this->_sprites[this->_currentSprite].first << this->_nbOfSprite << std::endl;
     return (this->_sprites[this->_currentSprite].second);
 }

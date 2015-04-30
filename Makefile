@@ -3,7 +3,7 @@
 ## paulos_a@epitech.eu
 ##
 
-CXX	= clang++
+CXX	= @clang++
 
 DIR_SRC	= ./src
 
@@ -15,7 +15,8 @@ SRCS	=	main.cpp					\
 			$(DIR_SRC)/Bullet.cpp		\
 			$(DIR_SRC)/Sprite.cpp		\
 			$(DIR_SRC)/ISfml.cpp		\
-			$(DIR_SRC)/SFMLLoader.cpp
+			$(DIR_SRC)/SFMLLoader.cpp	\
+			$(DIR_SRC)/ISfmlClock.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
@@ -29,7 +30,7 @@ CXXFLAGS	+= -std=c++11
 
 LDFLAGS		= -lsfml-graphics -lsfml-window -lsfml-system
 
-RM	= rm -f
+RM	= @rm -f
 
 NAME	= space\ invaders
 

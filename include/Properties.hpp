@@ -46,23 +46,18 @@ const float         Y_SCALE_FACTOR = 1.0f;
  */
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_1 = {
     {"Adversary1-1-", "./Sprite/Adversary1-1.png"},
-    {"Adversary1-1-", "./Sprite/Adversary1-2.png"},
 };
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_2 = {
     {"Adversary2-1-", "./Sprite/Adversary2-1.png"},
-    {"Adversary2-1-", "./Sprite/Adversary2-2.png"},
 };
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_3 = {
     {"Adversary3-1-", "./Sprite/Adversary2-1.png"},
-    {"Adversary3-1-", "./Sprite/Adversary2-2.png"},
 };
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_4 = {
     {"Adversary4-1-", "./Sprite/Adversary3-1.png"},
-    {"Adversary4-1-", "./Sprite/Adversary3-2.png"},
 };
 const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_5 = {
     {"Adversary5-1-", "./Sprite/Adversary3-1.png"},
-    {"Adversary5-1-", "./Sprite/Adversary3-2.png"},
 };
 
 const std::vector<std::vector<pair2s>>  PATH_ADVERSARY_SPRITES = {
@@ -72,7 +67,7 @@ const std::vector<std::vector<pair2s>>  PATH_ADVERSARY_SPRITES = {
     PATH_ADVERSARY_SPRITES_4,
     PATH_ADVERSARY_SPRITES_5
 };
-const int           ADVERSARY_SPEED = 2.f;
+const int           ADVERSARY_SPEED = 15.f;
 const int           ADVERSARY_PER_LINE = 11;
 const float         ADVERSARY_LENGTH = 40.f;
 const float         ADVERSARY_HEIGHT = 25.f;
