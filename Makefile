@@ -1,54 +1,54 @@
-##
-## Created by André Paulos
-## paulos_a@epitech.eu
-##
+NAME		=	space-invaders
 
-CXX	= @clang++
+ERRLOG		=	2>> errors~
 
-DIR_SRC	= ./src
+CC			=	clang++
+RM			=	rm -rf
+ECHO		=	echo
 
-SRCS	=	main.cpp					\
-			$(DIR_SRC)/Game.cpp			\
-			$(DIR_SRC)/Ship.cpp			\
-			$(DIR_SRC)/Wall.cpp			\
-			$(DIR_SRC)/Adversary.cpp	\
-			$(DIR_SRC)/Bullet.cpp		\
-			$(DIR_SRC)/Sprite.cpp		\
-			$(DIR_SRC)/ISfml.cpp		\
-			$(DIR_SRC)/SFMLLoader.cpp	\
-			$(DIR_SRC)/ISfmlClock.cpp
+FLAGS		=	-W -Wall -Werror -Wextra -O3
+FLAGS		+=	-std=c++11
+#			-lasan				\
+			-fsanitize=address		\
+			-fno-omit-frame-pointer		\
+			-O0
+#DEBUG		=	-g -g3 -ggdb
 
-OBJS	= $(SRCS:.cpp=.o)
+DEFAULT		=	"\033[00m"
+GREEN		=	"\033[0;32m"
+TEAL		=	"\033[1;36m"
+RED		=	"\033[0;31m"
 
-CXXFLAGS	= -I./include
+INCLUDE		=	-I./include/
+LIBRARY		= 	-lsfml-graphics			\
+			-lsfml-window			\
+			-lsfml-system
 
-CXXFLAGS	+= -Wall -Werror -Wextra
+ENTRYPOINT	=	$(wildcard ./src/*.cpp)
 
-CXXFLAGS	+= -g3
+FILE		=	$(ENTRYPOINT)
 
-CXXFLAGS	+= -std=c++11
+OBJ			=	$(FILE:.cpp=.o)
 
-LDFLAGS		= -lsfml-graphics -lsfml-window -lsfml-system
+## Compile ---------------------------------------------------------------------
+all:		temp $(NAME)
 
-RM	= @rm -f
+$(NAME):	$(OBJ)
+		@$(CC) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARY) \
+		 $(ERRLOG) && \
+		 $(ECHO) $(GREEN) "[OK]" $(TEAL) $@ $(DEFAULT) || \
+		 $(ECHO) $(RED) "[XX]" $(TEAL) $@ $(DEFAULT)
+.cpp.o:
+		@$(CC) -c $(INCLUDE) $< -o $@ $(DEBUG) $(FLAGS) \
+		 $(ERRLOG) && \
+		 $(ECHO) $(GREEN) "[OK]" $(TEAL) $< $(DEFAULT) || \
+		 $(ECHO) $(RED) "[XX]" $(TEAL) $< $(DEFAULT)
 
-NAME	= space\ invaders
-
-all	: $(NAME)
-
-$(NAME)	: $(OBJS)
-	@echo "\t\033[33mCompiling...\033[39m"
-	@$(CXX) $(OBJS) $(LDFLAGS) -o $(NAME)
-	@echo "\t\033[32mSuccess!\033[39m"
-
-clean	:
-	@echo "\t\033[91mRemoving objects...\033[39m"
-	@$(RM) $(OBJS)
-	@echo "\t\033[32mDone\033[39m"
-
-fclean	: clean
-	@echo "\t\033[91mRemoving executable ...\033[39m"
-	@$(RM) $(NAME)
-	@echo "\t\033[32mDone\033[m"
-
-re	: fclean all
+## Misc ------------------------------------------------------------------------
+temp:
+		@find . -name "*~" -delete
+clean:		temp
+		@$(RM) $(OBJ)
+fclean:		clean
+		@$(RM) $(NAME)
+re:		fclean all
