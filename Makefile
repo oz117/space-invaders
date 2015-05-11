@@ -6,7 +6,7 @@ CC			=	clang++
 RM			=	rm -rf
 ECHO		=	echo
 
-FLAGS		=	-W -Wall -Werror -Wextra -O3
+FLAGS		=	-W -Wall -Werror -Wextra -g3
 FLAGS		+=	-std=c++11
 #			-lasan				\
 			-fsanitize=address		\

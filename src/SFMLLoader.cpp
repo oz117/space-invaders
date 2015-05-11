@@ -8,60 +8,79 @@
 
 #include "SFMLLoader.hpp"
 
-SFMLLoader::SFMLLoader(void) {
+/*{  Default constructor; inits the vectors of texture and sprites (size) */
+SFMLLoader::SFMLLoader(void) : _textures(TEXTURE_COUNT), _sprites(SPRITE_COUNT), _spriteCount(0) {
 }
 
 SFMLLoader::~SFMLLoader(void) {
-    for (auto it = this->_sprites.begin(); it != this->_sprites.end(); ++it) {
-        delete (*it).second;
+}
+/*}*/
+
+/*{ Create Texture sets all the texture that will be used in the game */
+bool    SFMLLoader::createTextures(void) {
+    if (!this->_textures[Sprites::SHIP].loadFromFile(PATH_SHIP_SPRITE)) {
+        std::cerr << PATH_SHIP_SPRITE << " is nowhere to be found" << std::endl;
+        return (false);
     }
-    for (auto it = this->_textures.begin(); it != this->_textures.end(); ++it) {
-        delete (*it).second;
+    if (!this->_textures[Sprites::WALL].loadFromFile(PATH_WALL_SPRITE)) {
+        std::cerr << PATH_WALL_SPRITE << " is nowhere to be found" << std::endl;
+        return (false);
     }
+    if (!this->_textures[Sprites::ADVERSARY_0].loadFromFile(PATH_ADVERSARY_SPRITE_0)) {
+        std::cerr << PATH_ADVERSARY_SPRITE_0 << " is nowhere to be found" << std::endl;
+        return (false);
+    }
+    if (!this->_textures[Sprites::ADVERSARY_1].loadFromFile(PATH_ADVERSARY_SPRITE_1)) {
+        std::cerr << PATH_ADVERSARY_SPRITE_1 << " is nowhere to be found" << std::endl;
+        return (false);
+    }
+    if (!this->_textures[Sprites::ADVERSARY_2].loadFromFile(PATH_ADVERSARY_SPRITE_2)) {
+        std::cerr << PATH_ADVERSARY_SPRITE_2 << " is nowhere to be found" << std::endl;
+        return (false);
+    }
+    return (true);
+}
+/*}*/
+
+void            SFMLLoader::load(const Sprites::Sprite& sprite, const pair2f& rect,
+        const pair2f& spritePosition) {
+    sf::IntRect rectangle(0, 0, rect.first, rect.second);
+
+    this->_sprites[_spriteCount].setTexture((this->_textures[sprite]));
+    this->_sprites[_spriteCount].setTextureRect(rectangle);
+    this->_sprites[_spriteCount].setPosition(spritePosition.first, spritePosition.second);
+    ++_spriteCount;
 }
 
-std::map<std::string, sf::Sprite*>& SFMLLoader::getSprites(void) {
+const std::vector<sf::Sprite>&  SFMLLoader::getSprites(void) {
     return (this->_sprites);
 }
 
-void            SFMLLoader::load(const std::string& nameOfSprite, const std::string& pathToFile,
-        const pair2f& pos) {
-    sf::Texture *texture = new sf::Texture();
-    sf::Sprite  *sprite = new sf::Sprite();
-
-    if (!texture->loadFromFile(pathToFile)){
-        std::cerr << "Error could not load " << nameOfSprite << std::endl;
-        return ;
-    }
-    texture->setSmooth(true);
-    sprite->setTexture(*texture);
-    sprite->setPosition(pos.first, pos.second);
-    this->_sprites.insert(std::pair<std::string, sf::Sprite*>(nameOfSprite, sprite));
-    this->_textures.insert(std::pair<std::string, sf::Texture*>(nameOfSprite, texture));
-}
-
-void            SFMLLoader::setPosition(const std::string& nameOfSprite, const sf::Vector2f& newPos) {
-    this->_sprites.find(nameOfSprite)->second->setPosition(newPos);
-}
-
-sf::Sprite*     SFMLLoader::findSprite(const std::string& nameOfSprite) {
-    return (this->_sprites.find(nameOfSprite)->second);
-}
-
-bool            SFMLLoader::updateSprite(const std::string& nameOfSprite, const std::string& pathToFile) {
-    sf::Texture *texture;
-    sf::Sprite  *sprite;
-
-    sprite = NULL;
-    texture = NULL;
-    sprite = this->_sprites.find(nameOfSprite)->second;
-    texture = this->_textures.find(nameOfSprite)->second;
-    if (!sprite || !texture) {
-        std::cerr << "No sprite found" << std::endl;
+bool            SFMLLoader::setPosition(const Sprites::Sprite sprite, const pair2f& newPosition) {
+    if (sprite > this->_sprites.size()) {
         return (false);
     }
-    texture->loadFromFile(pathToFile);
-    texture->setSmooth(true);
-    sprite->setTexture(*texture);
+    this->_sprites[sprite].setPosition(newPosition.first, newPosition.second);
+    return (true);
+}
+
+bool            SFMLLoader::updateSprite(const pair2f& pos) {
+(void) pos;
+    /*
+ *    sf::Texture *texture;
+ *    sf::Sprite  *sprite;
+ *
+ *    sprite = NULL;
+ *    texture = NULL;
+ *    sprite = this->_sprites.find(nameOfSprite)->second;
+ *    texture = this->_textures.find(nameOfSprite)->second;
+ *    if (!sprite || !texture) {
+ *        std::cerr << "No sprite found" << std::endl;
+ *        return (false);
+ *    }
+ *    texture->loadFromFile(pathToFile);
+ *    texture->setSmooth(true);
+ *    sprite->setTexture(*texture);
+ */
     return (true);
 }

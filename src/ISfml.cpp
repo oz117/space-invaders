@@ -1,3 +1,11 @@
+/*
+** File: [ISfml.cpp]
+** Author: paulos_a.
+** Contact: <andre.paulos@epitech.eu> (github.com/oz117)
+** Created on 2015-05-07 22:24
+**
+*/
+
 #include "ISfml.hpp"
 
 ISfml::ISfml(void) {
@@ -53,12 +61,8 @@ Keys::Key       ISfml::handleInput(void) {
     return (Keys::Key::NONE);
 }
 
-void                ISfml::updatePosition(const std::string& nameOfSprite, const pair2f& newPosition) {
-    sf::Vector2f    position;
-
-    position.x = newPosition.first;
-    position.y = newPosition.second;
-    this->_loader.setPosition(nameOfSprite, position);
+void                ISfml::updatePosition(const Sprites::Sprite sprite, const pair2f& newPosition) {
+    this->_loader.setPosition(sprite, newPosition);
 }
 
 /*
@@ -67,12 +71,13 @@ void                ISfml::updatePosition(const std::string& nameOfSprite, const
  *}
  */
 
-void                ISfml::draw() {
+void                ISfml::draw(void) {
+    std::vector<sf::Sprite>     sprites;
 
+    sprites = this->_loader.getSprites();
     if (this->_window.isOpen()) {
-        for (auto it = this->_loader.getSprites().begin(); it != this->_loader.getSprites().end(); ++it)
-        {
-            this->_window.draw(*((*it).second));
+        for (size_t i = 0; i < sprites.size(); ++i) {
+            this->_window.draw(sprites[i]);
         }
     }
 }

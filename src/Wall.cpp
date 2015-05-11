@@ -8,7 +8,7 @@
 Wall::Wall(const std::string& nameOfSprite, const std::string& nbOfSprite) {
     std::vector<pair2s> sprites;
 
-    sprites.push_back(pair2s(nameOfSprite, PATH_WALL_SPRITE_100));
+    sprites.push_back(pair2s(nameOfSprite, PATH_WALL_SPRITE));
     this->_wall_sprite.create(sprites, pair2i(0, 0), nbOfSprite);
     this->_life = WALL_LIFE;
 }

@@ -10,9 +10,15 @@
 # define    PROPERTIES_HPP_
 
 # include   <vector>
+# include   <map>
 # include   <string>
 # include   "Typedefs.hpp"
 
+/*
+ * General Game properties
+*/
+const int           TEXTURE_COUNT = 5;
+const int           SPRITE_COUNT = 6;
 /*
  ** Main window properties
  */
@@ -24,16 +30,17 @@ const int           FQ = 16;
 /*
  ** Wall properties
  */
-const std::string   PATH_WALL_SPRITE_100 = "./Sprite/Wall.png";
+const std::string   PATH_WALL_SPRITE = "./Sprite/Wall.png";
 const int           WALL_LIFE = 100;
+const int           WALL_COUNT = 5;
 const float         WALL_Y_OFFSET = 850.f;
 const float         WALL_LENGTH = 44.f;
-const float         WALL_HEIGHT = 34.f;
+const float         WALL_HEIGHT = 32.f;
 
 /*
  ** Ship properties
  */
-const std::string   PATH_SHIP_SPRITE_100 = "./Sprite/Ship.png";
+const std::string   PATH_SHIP_SPRITE = "./Sprite/Ship.png";
 const float         SHIP_SPEED = 15.f;
 const float         SHIP_Y_OFFSET = 950.f;
 const float         SHIP_WIDTH = 25.f;
@@ -44,29 +51,15 @@ const float         Y_SCALE_FACTOR = 1.0f;
 /*
  ** Adversary properties
  */
-const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_1 = {
-    {"Adversary1-1-", "./Sprite/Adversary1-1.png"},
-};
-const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_2 = {
-    {"Adversary2-1-", "./Sprite/Adversary2-1.png"},
-};
-const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_3 = {
-    {"Adversary3-1-", "./Sprite/Adversary2-1.png"},
-};
-const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_4 = {
-    {"Adversary4-1-", "./Sprite/Adversary3-1.png"},
-};
-const std::vector<std::pair<std::string, std::string>>  PATH_ADVERSARY_SPRITES_5 = {
-    {"Adversary5-1-", "./Sprite/Adversary3-1.png"},
-};
+const std::string   PATH_ADVERSARY_SPRITE_0 = "./Sprite/Adversary0.png";
+const std::string   PATH_ADVERSARY_SPRITE_1 = "./Sprite/Adversary0.png";
+const std::string   PATH_ADVERSARY_SPRITE_2 = "./Sprite/Adversary0.png";
 
-const std::vector<std::vector<pair2s>>  PATH_ADVERSARY_SPRITES = {
-    PATH_ADVERSARY_SPRITES_1,
-    PATH_ADVERSARY_SPRITES_2,
-    PATH_ADVERSARY_SPRITES_3,
-    PATH_ADVERSARY_SPRITES_4,
-    PATH_ADVERSARY_SPRITES_5
-};
+/*
+ *const std::vector<std::string>  PATH_ADVERSARY_SPRITES = {
+ *};
+ */
+
 const int           ADVERSARY_SPEED = 15.f;
 const int           ADVERSARY_PER_LINE = 11;
 const float         ADVERSARY_LENGTH = 40.f;

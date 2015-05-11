@@ -14,6 +14,16 @@
 # include   <vector>
 # include   "Typedefs.hpp"
 
+namespace                   Sprites {
+    enum                    Sprite {
+        SHIP = 0,
+        WALL,
+        ADVERSARY_0,
+        ADVERSARY_1,
+        ADVERSARY_2
+    };
+}
+
 class                       Sprite {
     private:
         Sprite(const Sprite& other);

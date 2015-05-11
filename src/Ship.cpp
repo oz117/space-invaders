@@ -9,7 +9,7 @@
 Ship::Ship(void) {
     std::vector<pair2s> sprites;
 
-    sprites.push_back(pair2s("Ship", PATH_SHIP_SPRITE_100));
+    sprites.push_back(pair2s("Ship", PATH_SHIP_SPRITE));
     this->_ship_sprite.create(sprites, pair2i(0, 0), "");
     this->_pos.first = (X_SIZE - (SHIP_WIDTH / 2)) / 2;
     this->_pos.second = SHIP_Y_OFFSET;
@@ -45,9 +45,9 @@ void            Ship::move(Keys::Key key) {
 
     newPosition.second = SHIP_Y_OFFSET;
     newPosition.first = this->getX();
-    if (key == Keys::Key::RIGHT)
+    if (key == Keys::RIGHT)
         newPosition.first += SHIP_SPEED;
-    else if (key == Keys::Key::LEFT)
+    else if (key == Keys::LEFT)
         newPosition.first -= SHIP_SPEED;
     this->checkPosition(newPosition);
     this->setPosition(newPosition);

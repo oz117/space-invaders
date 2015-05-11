@@ -11,6 +11,7 @@
 
 # include   <SFML/Graphics.hpp>
 # include   <string.h>
+# include   "Properties.hpp"
 # include   "Typedefs.hpp"
 # include   "Sprite.hpp"
 
@@ -21,15 +22,17 @@ class       SFMLLoader {
     public:
         SFMLLoader(void);
         ~SFMLLoader(void);
-        void                                    load(const std::string& nameOfSprite, const std::string& pathToFile,
-                                                            const pair2f& pos);
-        sf::Sprite*                             findSprite(const std::string& name);
-        void                                    setPosition(const std::string& nameOfSprite, const sf::Vector2f& newPos);
-        bool                                    updateSprite(const std::string& nameOfSprite, const std::string& pathToFile);
-        std::map<std::string, sf::Sprite*>&     getSprites(void);
+        bool                                    createTextures(void);
+        void                                    load(const Sprites::Sprite& sprite, const pair2f& rect,
+                const pair2f& spritePosition);
+        bool                                    setPosition(const Sprites::Sprite sprite,
+                const pair2f& newPosition);
+        bool                                    updateSprite(const pair2f& pos);
+        const std::vector<sf::Sprite>&          getSprites(void);
     protected:
-        std::map<std::string, sf::Sprite*>      _sprites;
-        std::map<std::string, sf::Texture*>     _textures;
+        std::vector<sf::Texture>                _textures;
+        std::vector<sf::Sprite>                 _sprites;
+        int                                     _spriteCount;
 };
 
 #endif      // !SFMLLOADER_HPP_

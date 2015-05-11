@@ -10,6 +10,7 @@
 # define    IRENDERER_HPP_
 
 # include   <iostream>
+# include   "Sprite.hpp"
 # include   "Typedefs.hpp"
 
 namespace                   Keys {
@@ -29,7 +30,7 @@ class                       IRenderer {
         virtual void        display(void) = 0;
         virtual bool        closeWindow(void) = 0;
         virtual Keys::Key   handleInput(void) = 0;
-        virtual void        updatePosition(const std::string& nameOfSprite, const pair2f& newPosition) = 0;
+        virtual void        updatePosition(const Sprites::Sprite sprite, const pair2f& newPosition) = 0;
 };
 
 #endif      // !IRENDERER_HPP_
