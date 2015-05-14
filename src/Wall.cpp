@@ -5,16 +5,20 @@
 */
 #include "Wall.hpp"
 
-Wall::Wall(const std::string& nameOfSprite, const std::string& nbOfSprite) {
-    std::vector<pair2s> sprites;
-
-    sprites.push_back(pair2s(nameOfSprite, PATH_WALL_SPRITE));
-    this->_wall_sprite.create(sprites, pair2i(0, 0), nbOfSprite);
+Wall::Wall(void) {
     this->_life = WALL_LIFE;
 }
 
 Wall::~Wall(void) {
 
+}
+
+int             Wall::getSpriteNumber(void) {
+    return (this->_spriteNumber);
+}
+
+void            Wall::setSpriteNumber(int spriteNumber) {
+    this->_spriteNumber = spriteNumber;
 }
 
 int     Wall::getLife(void) const {

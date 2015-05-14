@@ -8,7 +8,7 @@
 
 #include "Game.hpp"
 
-/*{ Default constructor and destructor */
+//{ Default constructor and destructor
 Game::Game(void) {
     std::cout << "Game started" << std::endl;
 }
@@ -17,38 +17,72 @@ Game::~Game(void) {
     delete this->_window;
     std::cout << "End of the game" << std::endl;
 }
-/*}*/
+//}
 
 bool                    Game::init(void) {
     float               pos;
+    float               y_offset;
 
     pos = 0;
     this->_window = new ISfml();
     if (!(dynamic_cast<ISfml*>(this->_window)->_loader.createTextures()))
         return (false);
-    dynamic_cast<ISfml*>(this->_window)->_loader.load(Sprites::SHIP, pair2f(26, 16), this->_ship.getPosition());
+    this->_ship.setSpriteNumber(dynamic_cast<ISfml*>(this->_window)->_loader.getSpriteCount());
+    dynamic_cast<ISfml*>(this->_window)->_loader.load(Sprites::SHIP, SHIPSPRITES[0], this->_ship.getPosition());
     for (int i = 0; i < WALL_COUNT; ++i) {
         pos = ((X_SIZE / (WALL_COUNT + 1)) * (i + 1)) - (WALL_LENGTH / 2);
-        dynamic_cast<ISfml*>(this->_window)->_loader.load(Sprites::WALL, pair2f(44, 32), pair2f(pos, WALL_Y_OFFSET));
+        this->_walls[i].setSpriteNumber(dynamic_cast<ISfml*>(this->_window)->_loader.getSpriteCount());
+        dynamic_cast<ISfml*>(this->_window)->_loader.load(Sprites::WALL, WALL_SPRITES[0], pair2f(pos, WALL_Y_OFFSET));
     }
+    y_offset = ADVERSARY_Y_OFFSET + (0 * 50.f);
+    initAdversaries(0, y_offset, Sprites::ADVERSARY_0, ADVERSARY_SPRITES_0[0]);
+    y_offset = ADVERSARY_Y_OFFSET + (1 * 50.f);
+    initAdversaries(1, y_offset, Sprites::ADVERSARY_1, ADVERSARY_SPRITES_1[0]);
+    y_offset = ADVERSARY_Y_OFFSET + (2 * 50.f);
+    initAdversaries(2, y_offset, Sprites::ADVERSARY_1, ADVERSARY_SPRITES_1[0]);
+    y_offset = ADVERSARY_Y_OFFSET + (3 * 50.f);
+    initAdversaries(3, y_offset, Sprites::ADVERSARY_2, ADVERSARY_SPRITES_2[0]);
+    y_offset = ADVERSARY_Y_OFFSET + (4 * 50.f);
+    initAdversaries(4, y_offset, Sprites::ADVERSARY_2, ADVERSARY_SPRITES_2[0]);
     return (true);
 }
 
+void        Game::initAdversaries(int cpt, float y_offset,
+        Sprites::Sprite sprite, const float *rect) {
+    float   pos;
+
+    pos = 0;
+    for (int j = 0; j < ADVERSARY_PER_LINE; ++j) {
+        pos = ((X_SIZE / (ADVERSARY_PER_LINE + 1)) * j);
+        this->_adversaries[cpt][j].setSpriteNumber(dynamic_cast<ISfml*>(this->_window)->_loader.getSpriteCount());
+        this->_adversaries[cpt][j].setPosition(pair2f(pos, y_offset));
+        dynamic_cast<ISfml*>(this->_window)->_loader.load(sprite, rect, this->_adversaries[cpt][j].getPosition());
+    }
+}
+
 void    Game::updatePosition() {
-    /*
-     *for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-     *    this->_window->updatePosition((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getPosition());
-     *}*/
-    this->_window->updatePosition(Sprites::SHIP, this->_ship.getPosition());
+    for (int j = 0; j < ADVERSARY_ROW_COUNT; ++j) {
+        for (int i = 0; i < ADVERSARY_PER_LINE; ++i) {
+            this->_window->updatePosition(this->_adversaries[j][i].getSpriteNumber(), this->_adversaries[j][i].getPosition());
+        }
+        this->_window->updatePosition(Sprites::SHIP, this->_ship.getPosition());
+    }
 }
 
 void    Game::updateAnimation(void) {
-    /*
-     *for (auto it = this->_adversaries.begin(); it != this->_adversaries.end(); ++it) {
-     *    (*it)->move();
-     *    dynamic_cast<ISfml*>(this->_window)->_loader.updateSprite((*it)->getSprite().getNameOfCurrentSprite(), (*it)->getSprite().getPathNextSprite());
-     *}
-     */
+    this->updateAdversarySprite(0, ADVERSARY_SPRITES_0);
+    this->updateAdversarySprite(1, ADVERSARY_SPRITES_1);
+    this->updateAdversarySprite(2, ADVERSARY_SPRITES_1);
+    this->updateAdversarySprite(3, ADVERSARY_SPRITES_2);
+    this->updateAdversarySprite(4, ADVERSARY_SPRITES_2);
+}
+
+void            Game::updateAdversarySprite(int cpt, const float rect[3][4]) {
+    for (int i = 0; i < ADVERSARY_PER_LINE; ++i) {
+        this->_adversaries[cpt][i].move();
+        dynamic_cast<ISfml*>(this->_window)->_loader.updateSprite(this->_adversaries[cpt][i].getSpriteNumber(),
+                rect[this->_adversaries[cpt][i].getNextSprite()]);
+    }
 }
 
 bool            Game::run(void) {
@@ -71,7 +105,7 @@ bool            Game::run(void) {
         }
         this->_ship.move(key);
         if (animationClock->getElapsedTimeAsSeconds() >= 1) {
-            //this->updateAnimation();
+            this->updateAnimation();
             animationClock->restart();
         }
         if (FQ <= gameClock->getElapsedTimeAsMilliseconds()) {

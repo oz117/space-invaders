@@ -61,7 +61,7 @@ Keys::Key       ISfml::handleInput(void) {
     return (Keys::Key::NONE);
 }
 
-void                ISfml::updatePosition(const Sprites::Sprite sprite, const pair2f& newPosition) {
+void                ISfml::updatePosition(const int sprite, const pair2f& newPosition) {
     this->_loader.setPosition(sprite, newPosition);
 }
 

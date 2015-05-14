@@ -17,14 +17,16 @@ class       Wall {
         Wall&   operator=(const Wall& other);
         Wall(const Wall& other);
     public:
-        Wall(const std::string& nameOfSprite, const std::string& nbOfSprite);
+        Wall(void);
         ~Wall(void);
     public:
         int                         getLife(void) const;
         void                        setLife(const int life);
+        int                         getSpriteNumber(void);
+        void                        setSpriteNumber(int spriteNumber);
     protected:
         int                         _life;
-        Sprite                      _wall_sprite;
+        int                         _spriteNumber;
 };
 
 #endif      /* !WALL_HPP_ */

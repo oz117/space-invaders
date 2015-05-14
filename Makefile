@@ -2,7 +2,7 @@ NAME		=	space-invaders
 
 ERRLOG		=	2>> errors~
 
-CC			=	clang++
+CC			=	g++
 RM			=	rm -rf
 ECHO		=	echo
 

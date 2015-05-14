@@ -7,16 +7,20 @@
 #include "Ship.hpp"
 
 Ship::Ship(void) {
-    std::vector<pair2s> sprites;
-
-    sprites.push_back(pair2s("Ship", PATH_SHIP_SPRITE));
-    this->_ship_sprite.create(sprites, pair2i(0, 0), "");
     this->_pos.first = (X_SIZE - (SHIP_WIDTH / 2)) / 2;
     this->_pos.second = SHIP_Y_OFFSET;
 }
 
 Ship::~Ship(void) {
     std::cout << "Ship destroyed" << std::endl;
+}
+
+int             Ship::getSpriteNumber(void) {
+    return (this->_spriteNumber);
+}
+
+void            Ship::setSpriteNumber(int spriteNumber) {
+    this->_spriteNumber = spriteNumber;
 }
 
 const float&    Ship::getX(void) const {

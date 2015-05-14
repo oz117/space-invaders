@@ -13,26 +13,31 @@
 # include   <utility>
 # include   "Typedefs.hpp"
 # include   "Properties.hpp"
-# include   "Sprite.hpp"
 
 class       Adversary {
     private:
-        Adversary(void);
         Adversary&  operator=(const Adversary& other);
         Adversary(const Adversary& other);
     public:
-        Adversary(const std::vector<pair2s>& sprites, const pair2f& pos, const std::string& nbOfSprite);
+        Adversary(void);
         ~Adversary(void);
     public:
         const float&    getX(void) const;
         const pair2f&   getPosition(void) const;
         void            setPosition(const pair2f& newPosition);
         void            move(void);
-        Sprite&         getSprite(void);
         void            checkPosition(pair2f& newPosition);
+        int             getSpriteNumber(void);
+        void            setSpriteNumber(int spriteNumber);
+        int             getNextSprite(void);
+        void            setNextSprite(int nextSprite);
+        int             getCurrentSprite(void);
+        void            setCurrentSprite(int currentSprite);
     protected:
-        Sprite          _adversary_sprite;
         pair2f          _pos;
+        int             _spriteNumber;
+        int             _nextSprite;
+        int             _currentSprite;
 };
 
 #endif      /* !ADVERSARY_HPP_*/

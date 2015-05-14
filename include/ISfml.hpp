@@ -26,7 +26,7 @@ class       ISfml : public IRenderer {
         void                display(void);
         bool                closeWindow(void);
         Keys::Key           handleInput(void);
-        void                updatePosition(const Sprites::Sprite sprite, const pair2f& newPosition);
+        void                updatePosition(const int sprite, const pair2f& newPosition);
         SFMLLoader          _loader;
     protected:
         sf::RenderWindow    _window;

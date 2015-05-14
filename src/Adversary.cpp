@@ -8,12 +8,35 @@
 
 #include "Adversary.hpp"
 
-Adversary::Adversary(const std::vector<pair2s>& sprites, const pair2f& pos, const std::string& nbOfSprite) {
-    this->_adversary_sprite.create(sprites, pair2i(0, 0), nbOfSprite);
-    this->_pos = pos;
+Adversary::Adversary(void) {
+    this->_nextSprite = 1;
 }
 
 Adversary::~Adversary(void) {
+}
+
+int             Adversary::getSpriteNumber(void) {
+    return (this->_spriteNumber);
+}
+
+void            Adversary::setSpriteNumber(int spriteNumber) {
+    this->_spriteNumber = spriteNumber;
+}
+
+int             Adversary::getNextSprite(void) {
+    return (this->_nextSprite);
+}
+
+void            Adversary::setNextSprite(int nextSprite) {
+    this->_nextSprite = nextSprite;
+}
+
+int             Adversary::getCurrentSprite(void) {
+    return (this->_currentSprite);
+}
+
+void            Adversary::setCurrentSprite(int currentSprite) {
+    this->_currentSprite = currentSprite;
 }
 
 const float&    Adversary::getX(void) const {
@@ -35,10 +58,6 @@ void            Adversary::checkPosition(pair2f& newPosition) {
     }
 }
 
-Sprite&   Adversary::getSprite(void) {
-    return (this->_adversary_sprite);
-}
-
 void            Adversary::move(void) {
     pair2f      newPosition;
 
@@ -46,4 +65,10 @@ void            Adversary::move(void) {
     newPosition.first += ADVERSARY_SPEED;
     checkPosition(newPosition);
     this->setPosition(newPosition);
+    if (this->_nextSprite == 1) {
+        this->_nextSprite = 0;
+    }
+    else {
+        this->_nextSprite = 1;
+    }
 }

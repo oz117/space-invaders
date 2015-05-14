@@ -10,6 +10,7 @@
 # define    SFMLLOADER_HPP_
 
 # include   <SFML/Graphics.hpp>
+# include   <iostream>
 # include   <string.h>
 # include   "Properties.hpp"
 # include   "Typedefs.hpp"
@@ -23,12 +24,14 @@ class       SFMLLoader {
         SFMLLoader(void);
         ~SFMLLoader(void);
         bool                                    createTextures(void);
-        void                                    load(const Sprites::Sprite& sprite, const pair2f& rect,
-                const pair2f& spritePosition);
-        bool                                    setPosition(const Sprites::Sprite sprite,
+        void                                    load(const Sprites::Sprite& sprite,
+                const float *rect, const pair2f& spritePosition);
+        bool                                    setPosition(const int sprite,
                 const pair2f& newPosition);
-        bool                                    updateSprite(const pair2f& pos);
+        bool                                    updateSprite(int spriteNumber,
+                const float *rect);
         const std::vector<sf::Sprite>&          getSprites(void);
+        int                                     getSpriteCount(void);
     protected:
         std::vector<sf::Texture>                _textures;
         std::vector<sf::Sprite>                 _sprites;

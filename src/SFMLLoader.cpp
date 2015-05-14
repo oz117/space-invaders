@@ -42,9 +42,13 @@ bool    SFMLLoader::createTextures(void) {
 }
 /*}*/
 
-void            SFMLLoader::load(const Sprites::Sprite& sprite, const pair2f& rect,
-        const pair2f& spritePosition) {
-    sf::IntRect rectangle(0, 0, rect.first, rect.second);
+int             SFMLLoader::getSpriteCount(void) {
+    return (this->_spriteCount);
+}
+
+void            SFMLLoader::load(const Sprites::Sprite& sprite,
+        const float *rect, const pair2f& spritePosition) {
+    sf::IntRect rectangle(rect[0], rect[1], rect[2], rect[3]);
 
     this->_sprites[_spriteCount].setTexture((this->_textures[sprite]));
     this->_sprites[_spriteCount].setTextureRect(rectangle);
@@ -56,31 +60,20 @@ const std::vector<sf::Sprite>&  SFMLLoader::getSprites(void) {
     return (this->_sprites);
 }
 
-bool            SFMLLoader::setPosition(const Sprites::Sprite sprite, const pair2f& newPosition) {
-    if (sprite > this->_sprites.size()) {
+bool            SFMLLoader::setPosition(const int sprite, const pair2f& newPosition) {
+    if (sprite > this->_spriteCount) {
         return (false);
     }
     this->_sprites[sprite].setPosition(newPosition.first, newPosition.second);
     return (true);
 }
 
-bool            SFMLLoader::updateSprite(const pair2f& pos) {
-(void) pos;
-    /*
- *    sf::Texture *texture;
- *    sf::Sprite  *sprite;
- *
- *    sprite = NULL;
- *    texture = NULL;
- *    sprite = this->_sprites.find(nameOfSprite)->second;
- *    texture = this->_textures.find(nameOfSprite)->second;
- *    if (!sprite || !texture) {
- *        std::cerr << "No sprite found" << std::endl;
- *        return (false);
- *    }
- *    texture->loadFromFile(pathToFile);
- *    texture->setSmooth(true);
- *    sprite->setTexture(*texture);
- */
+bool            SFMLLoader::updateSprite(int spriteNumber, const float *rect) {
+    sf::IntRect rectangle(rect[0], rect[1], rect[2], rect[3]);
+
+    if (spriteNumber > this->_spriteCount) {
+        return (false);
+    }
+    this->_sprites[spriteNumber].setTextureRect(rectangle);
     return (true);
 }

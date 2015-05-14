@@ -23,14 +23,16 @@ class                   Ship {
         Ship(void);
         ~Ship(void);
     public:
+        int             getSpriteNumber(void);
+        void            setSpriteNumber(int spriteNumber);
         const float&    getX(void) const;
         const pair2f&   getPosition(void) const;
         void            setPosition(const pair2f& pos);
         void            checkPosition(pair2f& newPosition);
         void            move(Keys::Key direction);
     protected:
-        Sprite          _ship_sprite;
         pair2f          _pos;
+        int             _spriteNumber;
 };
 
 #endif      /* !SHIP_HPP_*/
