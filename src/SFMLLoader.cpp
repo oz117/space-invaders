@@ -8,15 +8,15 @@
 
 #include "SFMLLoader.hpp"
 
-/*{  Default constructor; inits the vectors of texture and sprites (size) */
+//{  Default constructor; inits the vectors of texture and sprites (size)
 SFMLLoader::SFMLLoader(void) : _textures(TEXTURE_COUNT), _sprites(SPRITE_COUNT), _spriteCount(0) {
 }
 
 SFMLLoader::~SFMLLoader(void) {
 }
-/*}*/
+//}
 
-/*{ Create Texture sets all the texture that will be used in the game */
+//{ Create Texture sets all the texture that will be used in the game
 bool    SFMLLoader::createTextures(void) {
     if (!this->_textures[Sprites::SHIP].loadFromFile(PATH_SHIP_SPRITE)) {
         std::cerr << PATH_SHIP_SPRITE << " is nowhere to be found" << std::endl;
@@ -40,12 +40,15 @@ bool    SFMLLoader::createTextures(void) {
     }
     return (true);
 }
-/*}*/
+//}
 
+// { Returns the number of sprites
 int             SFMLLoader::getSpriteCount(void) {
     return (this->_spriteCount);
 }
+// }
 
+// { Sets a texture to a given sprite
 void            SFMLLoader::load(const Sprites::Sprite& sprite,
         const float *rect, const pair2f& spritePosition) {
     sf::IntRect rectangle(rect[0], rect[1], rect[2], rect[3]);
@@ -55,11 +58,13 @@ void            SFMLLoader::load(const Sprites::Sprite& sprite,
     this->_sprites[_spriteCount].setPosition(spritePosition.first, spritePosition.second);
     ++_spriteCount;
 }
+// }
 
 const std::vector<sf::Sprite>&  SFMLLoader::getSprites(void) {
     return (this->_sprites);
 }
 
+// { changes the position of a sprite
 bool            SFMLLoader::setPosition(const int sprite, const pair2f& newPosition) {
     if (sprite > this->_spriteCount) {
         return (false);
@@ -67,7 +72,9 @@ bool            SFMLLoader::setPosition(const int sprite, const pair2f& newPosit
     this->_sprites[sprite].setPosition(newPosition.first, newPosition.second);
     return (true);
 }
+// }
 
+// { Updates the sprite by changing the part that will be shown on screen
 bool            SFMLLoader::updateSprite(int spriteNumber, const float *rect) {
     sf::IntRect rectangle(rect[0], rect[1], rect[2], rect[3]);
 
@@ -77,3 +84,4 @@ bool            SFMLLoader::updateSprite(int spriteNumber, const float *rect) {
     this->_sprites[spriteNumber].setTextureRect(rectangle);
     return (true);
 }
+// }

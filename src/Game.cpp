@@ -19,6 +19,7 @@ Game::~Game(void) {
 }
 //}
 
+// { Sets the sprites of the game and their positions
 bool                    Game::init(void) {
     float               pos;
     float               y_offset;
@@ -59,7 +60,9 @@ void        Game::initAdversaries(int cpt, float y_offset,
         dynamic_cast<ISfml*>(this->_window)->_loader.load(sprite, rect, this->_adversaries[cpt][j].getPosition());
     }
 }
+//}
 
+// { Updates the position of every sprite
 void    Game::updatePosition() {
     for (int j = 0; j < ADVERSARY_ROW_COUNT; ++j) {
         for (int i = 0; i < ADVERSARY_PER_LINE; ++i) {
@@ -68,13 +71,13 @@ void    Game::updatePosition() {
         this->_window->updatePosition(Sprites::SHIP, this->_ship.getPosition());
     }
 }
+// }
 
+// { changes the sprite of the adversary
 void    Game::updateAnimation(void) {
-    this->updateAdversarySprite(0, ADVERSARY_SPRITES_0);
-    this->updateAdversarySprite(1, ADVERSARY_SPRITES_1);
-    this->updateAdversarySprite(2, ADVERSARY_SPRITES_1);
-    this->updateAdversarySprite(3, ADVERSARY_SPRITES_2);
-    this->updateAdversarySprite(4, ADVERSARY_SPRITES_2);
+    for (int i = 0; i < ADVERSARY_ROW_COUNT; ++i) {
+        this->updateAdversarySprite(i, ADVERSARY_SPRITES[i]);
+    }
 }
 
 void            Game::updateAdversarySprite(int cpt, const float rect[3][4]) {
